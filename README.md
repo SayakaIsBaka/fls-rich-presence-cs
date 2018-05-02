@@ -10,7 +10,7 @@ C# rewrite of [fls-rich-presence](https://github.com/SayakaIsBaka/fls-rich-prese
 
 ## Download
 
-Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presence/releases/lastest)
+Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presence-cs/releases/lastest)
 
 ## Setup
 
