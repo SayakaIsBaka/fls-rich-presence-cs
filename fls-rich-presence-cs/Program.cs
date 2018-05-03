@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows.Forms;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using DiscordRPC.Message;
@@ -49,17 +50,18 @@ namespace fls_rich_presence_cs
 
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
+        private static Tray tray;
         private static DiscordRpcClient client;
         private static RichPresence presence = new RichPresence()
-		{
-			Details = "Editing:",
-			State = "",
+        {
+            Details = "Editing:",
+            State = "",
             Timestamps = new Timestamps(),
             Assets = new Assets()
-			{
+            {
                 LargeImageKey = "fl_icon",
-				LargeImageText = "FL Studio 12",
-			}
+                LargeImageText = "FL Studio 12",
+            }
 		};
 
         static void Init()
@@ -79,7 +81,18 @@ namespace fls_rich_presence_cs
         static void Main(string[] args)
         {
             Init();
+
+            Thread trayThread = new Thread(
+                delegate ()
+                {
+                    tray = new Tray();
+                    tray.SetExternalFunc(Exit, 3); //HACK
+                    Application.Run();
+                });
+            trayThread.Start();
+
             MainLoop();
+            Application.Exit();
         }
 
         static void MainLoop()
@@ -113,24 +126,28 @@ namespace fls_rich_presence_cs
             
         }
 
-        static int UpdatePresence(string title)
+        static void UpdatePresence(string title)
         {
-            string updateTitle = "";
-            if (title == "FL Studio 12")
-            {
-                updateTitle = "Unsaved project";
-            }
+            if (!tray.IsPresenceActive)
+                client.SetPresence(null);
             else
             {
-                updateTitle = Regex.Match(title, ".+?(?= - FL Studio [0-9]?[0-9]$)").Value;
-            }
-            if (updateTitle != presence.State)
-            {
-                presence.Timestamps.Start = DateTime.UtcNow;
-            }
-            presence.State = updateTitle;
-            client.SetPresence(presence);
-            return 0;
+                string updateTitle = "";
+                if (title == "FL Studio 12")
+                {
+                    updateTitle = "Unsaved project";
+                }
+                else
+                {
+                    updateTitle = Regex.Match(title, ".+?(?= - FL Studio [0-9]?[0-9]$)").Value;
+                }
+                if (updateTitle != presence.State)
+                {
+                    presence.Timestamps.Start = DateTime.UtcNow;
+                }
+                presence.State = updateTitle;
+                client.SetPresence(presence);
+            } 
         }
 
         static string GetFLTitle()
@@ -187,6 +204,7 @@ namespace fls_rich_presence_cs
         static void Exit()
         {
             client.Dispose();
+            tray.Dispose();
         }
     }
 }

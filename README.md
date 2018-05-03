@@ -10,7 +10,7 @@ C# rewrite of [fls-rich-presence](https://github.com/SayakaIsBaka/fls-rich-prese
 
 ## Download
 
-Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presence-cs/releases)
+Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presence/releases/lastest)
 
 ## Setup
 
@@ -18,6 +18,7 @@ Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presen
 - Run FL Studio and wait for the main window to appear
 - Run `fls-rich-presence-cs.exe`
 
+When the program is running, a FL icon is showing in the system tray. Right-clicking it displays a menu with some options such as enable or disable the Rich Presence or killing the program.
 The program kills itself if you quit FL Studio.
 
 ## Issues
@@ -28,7 +29,7 @@ If you encounter any issues during installation or after, please contact me at *
 
 ## To Do
 
-- Make something *slightly* more user-friendly
+- Make something to easily access the debug log
 
 ## Credits
 
