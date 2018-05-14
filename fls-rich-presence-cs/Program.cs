@@ -78,7 +78,7 @@ namespace fls_rich_presence_cs
 
             client = new DiscordRpcClient("398479706095091733", true, -1)
             {
-                Logger = new DiscordRPC.Logging.ConsoleLogger { Level = LogLevel.Info }
+                Logger = new DiscordRPC.Logging.ConsoleLogger() { Level = LogLevel.Info }
             };
 
             client.OnReady += OnReady;
