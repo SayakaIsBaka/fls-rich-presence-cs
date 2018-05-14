@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using System.IO;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using DiscordRPC.Message;
@@ -52,6 +53,8 @@ namespace fls_rich_presence_cs
 
         private static Tray tray;
         private static DiscordRpcClient client;
+        private static FileStream logFile;
+        private static StreamWriter sw;
         private static RichPresence presence = new RichPresence()
         {
             Details = "Editing:",
@@ -66,15 +69,21 @@ namespace fls_rich_presence_cs
 
         static void Init()
         {
+            logFile = new FileStream(Directory.GetCurrentDirectory() + "\\log.txt", FileMode.Create);
+            sw = new StreamWriter(logFile);
+            sw.AutoFlush = true;
+            sw.WriteLine("Log: " + DateTime.UtcNow.ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"));
+            Console.SetOut(sw);
+            Console.SetError(sw);
+
             client = new DiscordRpcClient("398479706095091733", true, -1)
             {
-                Logger = new DiscordRPC.Logging.ConsoleLogger() { Level = LogLevel.Info }
+                Logger = new DiscordRPC.Logging.ConsoleLogger { Level = LogLevel.Info }
             };
 
             client.OnReady += OnReady;
 
             presence.Timestamps.Start = DateTime.UtcNow;
-
             client.Initialize();
         }
 
@@ -86,12 +95,13 @@ namespace fls_rich_presence_cs
                 delegate ()
                 {
                     tray = new Tray();
-                    tray.SetExternalFunc(Exit, 3); //HACK
+                    tray.SetExternalFunc(Exit, 5); //HACK
                     Application.Run();
                 });
             trayThread.Start();
 
             MainLoop();
+            Exit();
             Application.Exit();
         }
 
@@ -117,7 +127,6 @@ namespace fls_rich_presence_cs
                     }
                 }
             }
-            Console.WriteLine("RPC closed.");
         }
 
         static void OnReady(object sender, ReadyMessage args)
@@ -205,6 +214,9 @@ namespace fls_rich_presence_cs
         {
             client.Dispose();
             tray.Dispose();
+            Console.WriteLine("RPC closed.");
+            sw.Close();
+            logFile.Dispose();
         }
     }
 }

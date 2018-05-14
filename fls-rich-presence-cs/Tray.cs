@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using Microsoft.Win32;
+using System.IO;
 
 namespace fls_rich_presence_cs
 {
@@ -47,6 +49,8 @@ namespace fls_rich_presence_cs
             menu.MenuItems.Add("Disable Rich Presence", new EventHandler(SwitchPresence));
             menu.MenuItems.Add("Project repository (GitHub)", new EventHandler(ProjectURL));
             menu.MenuItems.Add("-");
+            menu.MenuItems.Add("View log", new EventHandler(ViewLog));
+            menu.MenuItems.Add("-");
             menu.MenuItems.Add("Exit");
             tray.ContextMenu = menu;
             tray.Visible = true;
@@ -62,6 +66,11 @@ namespace fls_rich_presence_cs
         public void SetExternalFunc(Action func, int menuID)
         {
             NotifyTray.ContextMenu.MenuItems[menuID].Click += delegate (object sender, EventArgs e) { func(); };
+        }
+
+        private void ViewLog(object sender, EventArgs e)
+        {
+            Process.Start(Directory.GetCurrentDirectory() + "\\log.txt");
         }
 
         public void Dispose()
