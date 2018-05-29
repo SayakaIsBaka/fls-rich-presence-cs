@@ -63,7 +63,7 @@ namespace fls_rich_presence_cs
             Assets = new Assets()
             {
                 LargeImageKey = "fl_icon",
-                LargeImageText = "FL Studio 12",
+                LargeImageText = "FL Studio",
             }
 		};
 
