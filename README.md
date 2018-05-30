@@ -25,7 +25,7 @@ The program kills itself if you quit FL Studio.
 
 - Timer may act weird sometimes
 
-If you encounter any issues during installation or after, you can join this Discord server: https://discord.gg/Dq68J8r (I don't guarantee that I'll be able to help but I'll still try my best!)
+If you encounter any issues during installation or after, you can join [this Discord server](https://discord.gg/Dq68J8r) (I don't guarantee that I'll be able to help but I'll still try my best!)
 
 ## To Do
 
