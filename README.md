@@ -1,4 +1,4 @@
-# fls-rich-presence
+# fls-rich-presence-cs
 C# rewrite of [fls-rich-presence](https://github.com/SayakaIsBaka/fls-rich-presence), originally written in JavaScript (Node.js)
 
 ![](https://sayakaisbaka.s-ul.eu/vzEJx3bb.png)
@@ -25,7 +25,7 @@ The program kills itself if you quit FL Studio.
 
 - Timer may act weird sometimes
 
-If you encounter any issues during installation or after, please contact me at **Sayaka / 黒皇帝#9053** on Discord (I don't guarantee that I'll be able to help but I'll still try my best!)
+If you encounter any issues during installation or after, you can join this Discord server: https://discord.gg/Dq68J8r (I don't guarantee that I'll be able to help but I'll still try my best!)
 
 ## To Do
 
