@@ -30,6 +30,7 @@ If you encounter any issues during installation or after, you can join this Disc
 ## To Do
 
 - Make something to easily access the debug log
+- Updating this to support FL 20 (It should work with the current build but it'll still show FL Studio 12 as presence)
 
 ## Credits
 
