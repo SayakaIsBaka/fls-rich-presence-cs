@@ -141,8 +141,10 @@ namespace fls_rich_presence_cs
                 client.SetPresence(null);
             else
             {
+                string[] splitTitle = title.Split(' ');
+                string version = "FL Studio " + splitTitle[splitTitle.Length - 1];
                 string updateTitle = "";
-                if (title == "FL Studio 12")
+                if (title == version)
                 {
                     updateTitle = "Unsaved project";
                 }
@@ -154,6 +156,7 @@ namespace fls_rich_presence_cs
                 {
                     presence.Timestamps.Start = DateTime.UtcNow;
                 }
+                presence.Assets.LargeImageText = version;
                 presence.State = updateTitle;
                 client.SetPresence(presence);
             } 
