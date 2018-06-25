@@ -60,7 +60,7 @@ namespace fls_rich_presence_cs
             menu.MenuItems.Add("-");
             menu.MenuItems.Add("View log", new EventHandler(ViewLog));
             menu.MenuItems.Add("-");
-            menu.MenuItems.Add("Exit");
+            menu.MenuItems.Add("Exit", new EventHandler(Exit));
             tray.ContextMenu = menu;
             tray.Visible = true;
 
@@ -117,6 +117,11 @@ namespace fls_rich_presence_cs
             }
 
             NotifyTray.ContextMenu.MenuItems[1].Checked = RunOnStartup;
+        }
+
+        private void Exit(object sender, EventArgs e)
+        {
+            Program.Exit();
         }
     }
 }

@@ -78,7 +78,7 @@ namespace fls_rich_presence_cs
 
             client = new DiscordRpcClient("398479706095091733", true, -1)
             {
-                Logger = new DiscordRPC.Logging.ConsoleLogger() { Level = LogLevel.Info }
+                Logger = new DiscordRPC.Logging.ConsoleLogger() { Level = LogLevel.Warning }
             };
 
             client.OnReady += OnReady;
@@ -95,14 +95,12 @@ namespace fls_rich_presence_cs
                 delegate ()
                 {
                     tray = new Tray();
-                    tray.SetExternalFunc(Exit, 5); //HACK
                     Application.Run();
                 });
             trayThread.Start();
 
             MainLoop();
-            Exit();
-            Application.Exit();
+            
         }
 
         static void MainLoop()
@@ -213,13 +211,14 @@ namespace fls_rich_presence_cs
             return processName;
         }
 
-        static void Exit()
+        public static void Exit()
         {
-            client.Dispose();
             tray.Dispose();
+            client.Dispose();
+            Thread.Sleep(1000);
             Console.WriteLine("RPC closed.");
             sw.Close();
-            logFile.Dispose();
+            Application.Exit();
         }
     }
 }
