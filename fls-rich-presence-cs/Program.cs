@@ -123,7 +123,7 @@ namespace fls_rich_presence_cs
                     }
                     else
                     {
-                        Exit();
+                        UpdatePresence(null);
                     }
                 }
             }
@@ -137,7 +137,7 @@ namespace fls_rich_presence_cs
 
         static void UpdatePresence(string title)
         {
-            if (!tray.IsPresenceActive)
+            if (!tray.IsPresenceActive || title == null)
                 client.SetPresence(null);
             else
             {

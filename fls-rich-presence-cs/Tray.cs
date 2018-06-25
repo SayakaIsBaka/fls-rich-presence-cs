@@ -12,9 +12,16 @@ namespace fls_rich_presence_cs
     {
         public NotifyIcon NotifyTray { get; private set; }
         public bool IsPresenceActive { get; private set; }
+        private bool RunOnStartup;
 
         public Tray()
         {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            Object tmp = rk.GetValue("FLS Rich Presence");
+            if (tmp == null)
+                RunOnStartup = false;
+            else
+                RunOnStartup = true;
             NotifyTray = CreateTray();
             IsPresenceActive = true;
         }
@@ -47,6 +54,8 @@ namespace fls_rich_presence_cs
 
             ContextMenu menu = new ContextMenu();
             menu.MenuItems.Add("Disable Rich Presence", new EventHandler(SwitchPresence));
+            menu.MenuItems.Add("Run on startup", new EventHandler(SetStartup));
+            menu.MenuItems[1].Checked = RunOnStartup;
             menu.MenuItems.Add("Project repository (GitHub)", new EventHandler(ProjectURL));
             menu.MenuItems.Add("-");
             menu.MenuItems.Add("View log", new EventHandler(ViewLog));
@@ -92,6 +101,22 @@ namespace fls_rich_presence_cs
                 NotifyTray.ContextMenu.MenuItems[0].Text = "Enable Rich Presence";
                 NotifyTray.Text = "FL Studio Rich Presence: Disabled";
             }  
+        }
+        private void SetStartup(object sender, EventArgs e)
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (!RunOnStartup)
+            {
+                rk.SetValue("FLS Rich Presence", Application.ExecutablePath);
+                RunOnStartup = true;
+            }
+            else
+            {
+                rk.DeleteValue("FLS Rich Presence", false);
+                RunOnStartup = false;
+            }
+
+            NotifyTray.ContextMenu.MenuItems[1].Checked = RunOnStartup;
         }
     }
 }
