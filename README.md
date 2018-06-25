@@ -19,7 +19,6 @@ Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presen
 - Run `fls-rich-presence-cs.exe`
 
 When the program is running, a FL icon is showing in the system tray. Right-clicking it displays a menu with some options such as enable or disable the Rich Presence or killing the program.
-The program kills itself if you quit FL Studio.
 
 ## Issues
 
