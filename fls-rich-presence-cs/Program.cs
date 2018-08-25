@@ -117,12 +117,14 @@ namespace fls_rich_presence_cs
                     if (winTitle != null)
                     {
                         UpdatePresence(winTitle);
-                        Thread.Sleep(15000);
+                        tray.Detected(true);
                     }
                     else
                     {
                         UpdatePresence(null);
+                        tray.Detected(false);
                     }
+                    Thread.Sleep(15000);
                 }
             }
         }
@@ -163,24 +165,6 @@ namespace fls_rich_presence_cs
         static string GetFLTitle()
         {
             string processName = null;
-            Process procFL;
-
-            Process[] process64 = Process.GetProcessesByName("FL64");
-            if (process64.Length == 0)
-            {
-                Process[] process32 = Process.GetProcessesByName("FL");
-                if (process32.Length == 0)
-                {
-                    return null;
-                }
-
-                procFL = process32[0];
-            }
-            else
-            {
-                procFL = process64[0];
-            }
-
             uint threadID = 0;
 
             EnumWindows(delegate (IntPtr wnd, IntPtr param)
@@ -195,7 +179,7 @@ namespace fls_rich_presence_cs
                 IntPtr thr = OpenThread(ThreadAccess.QUERY_INFORMATION, false, threadID);
                 uint procID = GetProcessIdOfThread(thr);
 
-                if (procID == procFL.Id && className.ToString() == "TFruityLoopsMainForm")
+                if (className.ToString() == "TFruityLoopsMainForm")
                 {
                     int textLength = GetWindowTextLength(wnd);
                     StringBuilder outText = new StringBuilder(textLength + 1);
@@ -206,7 +190,6 @@ namespace fls_rich_presence_cs
 
                 return true;
             }, IntPtr.Zero);
-
 
             return processName;
         }

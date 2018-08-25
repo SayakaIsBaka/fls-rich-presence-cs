@@ -23,6 +23,7 @@ When the program is running, a FL icon is showing in the system tray. Right-clic
 ## Issues
 
 - Timer may act weird sometimes
+- You may have to run the program as admin to get it working
 
 If you encounter any issues during installation or after, you can join [this Discord server](https://discord.gg/Dq68J8r) (I don't guarantee that I'll be able to help but I'll still try my best!)
 

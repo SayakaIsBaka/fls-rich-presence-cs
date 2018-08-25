@@ -53,9 +53,12 @@ namespace fls_rich_presence_cs
             }
 
             ContextMenu menu = new ContextMenu();
+            menu.MenuItems.Add("FL Studio not detected...");
+            menu.MenuItems[0].Enabled = false;
+            menu.MenuItems.Add("-");
             menu.MenuItems.Add("Disable Rich Presence", new EventHandler(SwitchPresence));
             menu.MenuItems.Add("Run on startup", new EventHandler(SetStartup));
-            menu.MenuItems[1].Checked = RunOnStartup;
+            menu.MenuItems[3].Checked = RunOnStartup;
             menu.MenuItems.Add("Project repository (GitHub)", new EventHandler(ProjectURL));
             menu.MenuItems.Add("-");
             menu.MenuItems.Add("View log", new EventHandler(ViewLog));
@@ -93,12 +96,12 @@ namespace fls_rich_presence_cs
             IsPresenceActive = !IsPresenceActive;
             if (IsPresenceActive)
             {
-                NotifyTray.ContextMenu.MenuItems[0].Text = "Disable Rich Presence";
+                NotifyTray.ContextMenu.MenuItems[2].Text = "Disable Rich Presence";
                 NotifyTray.Text = "FL Studio Rich Presence: Enabled";
             }
             else
             {
-                NotifyTray.ContextMenu.MenuItems[0].Text = "Enable Rich Presence";
+                NotifyTray.ContextMenu.MenuItems[2].Text = "Enable Rich Presence";
                 NotifyTray.Text = "FL Studio Rich Presence: Disabled";
             }  
         }
@@ -116,12 +119,24 @@ namespace fls_rich_presence_cs
                 RunOnStartup = false;
             }
 
-            NotifyTray.ContextMenu.MenuItems[1].Checked = RunOnStartup;
+            NotifyTray.ContextMenu.MenuItems[3].Checked = RunOnStartup;
         }
 
         private void Exit(object sender, EventArgs e)
         {
             Program.Exit();
+        }
+
+        public void Detected(bool isDetected)
+        {
+            if (isDetected)
+            {
+                NotifyTray.ContextMenu.MenuItems[0].Text = "FL Studio detected!";
+            }
+            else
+            {
+                NotifyTray.ContextMenu.MenuItems[0].Text = "FL Studio not detected...";
+            }
         }
     }
 }
