@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -142,23 +141,26 @@ namespace fls_rich_presence_cs
             else
             {
                 string[] splitTitle = title.Split(' ');
-                string version = "FL Studio " + splitTitle[splitTitle.Length - 1];
-                string updateTitle = "";
-                if (title == version)
+                if (splitTitle[0] != "Rendering:")
                 {
-                    updateTitle = "Unsaved project";
+                    string version = "FL Studio " + splitTitle[splitTitle.Length - 1];
+                    string updateTitle = "";
+                    if (title == version)
+                    {
+                        updateTitle = "Unsaved project";
+                    }
+                    else
+                    {
+                        updateTitle = Regex.Match(title, ".+?(?= - FL Studio [0-9]?[0-9]$)").Value;
+                    }
+                    if (updateTitle != presence.State)
+                    {
+                        presence.Timestamps.Start = DateTime.UtcNow;
+                    }
+                    presence.Assets.LargeImageText = version;
+                    presence.State = updateTitle;
+                    client.SetPresence(presence);
                 }
-                else
-                {
-                    updateTitle = Regex.Match(title, ".+?(?= - FL Studio [0-9]?[0-9]$)").Value;
-                }
-                if (updateTitle != presence.State)
-                {
-                    presence.Timestamps.Start = DateTime.UtcNow;
-                }
-                presence.Assets.LargeImageText = version;
-                presence.State = updateTitle;
-                client.SetPresence(presence);
             } 
         }
 
