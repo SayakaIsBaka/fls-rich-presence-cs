@@ -75,7 +75,7 @@ namespace fls_rich_presence_cs
             Console.SetOut(sw);
             Console.SetError(sw);
 
-            client = new DiscordRpcClient("398479706095091733", true, -1)
+            client = new DiscordRpcClient("your_token_here")
             {
                 Logger = new DiscordRPC.Logging.ConsoleLogger() { Level = LogLevel.Warning }
             };
@@ -107,7 +107,7 @@ namespace fls_rich_presence_cs
             client.Invoke();
             Thread.Sleep(7000);
 
-            while (client != null && !client.Disposed)
+            while (client != null && !client.IsDisposed)
             {
                 string winTitle;
                 if (client != null) 
