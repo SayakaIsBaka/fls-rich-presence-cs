@@ -1,4 +1,7 @@
 # fls-rich-presence-cs
+
+![https://ci.appveyor.com/api/projects/status/github/SayakaIsBaka/fls-rich-presence-cs?svg=true](https://ci.appveyor.com/api/projects/status/github/SayakaIsBaka/fls-rich-presence-cs?svg=true)
+
 C# rewrite of [fls-rich-presence](https://github.com/SayakaIsBaka/fls-rich-presence), originally written in JavaScript (Node.js)
 
 ![](https://sayakaisbaka.s-ul.eu/vzEJx3bb.png)
@@ -10,7 +13,7 @@ C# rewrite of [fls-rich-presence](https://github.com/SayakaIsBaka/fls-rich-prese
 
 ## Download
 
-Grab the lastest release [here!](https://github.com/SayakaIsBaka/fls-rich-presence-cs/releases)
+Grab the lastest release [here](https://ci.appveyor.com/api/projects/SayakaIsBaka/fls-rich-presence-cs/artifacts/fls-rich-presence-cs/bin/Release.zip) or alternatively, check out the Releases tab [here!](https://github.com/SayakaIsBaka/fls-rich-presence-cs/releases)
 
 ## Setup
 
