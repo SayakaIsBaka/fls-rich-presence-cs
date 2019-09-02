@@ -75,7 +75,7 @@ namespace fls_rich_presence_cs
             Console.SetOut(sw);
             Console.SetError(sw);
 
-            client = new DiscordRpcClient("398479706095091733")
+            client = new DiscordRpcClient("your_token_here")
             {
                 Logger = new DiscordRPC.Logging.ConsoleLogger() { Level = LogLevel.Warning }
             };
