@@ -64,7 +64,7 @@ namespace fls_rich_presence_cs
                 LargeImageKey = "fl_icon",
                 LargeImageText = "FL Studio",
             }
-		};
+        };
 
         static void Init()
         {
@@ -152,6 +152,10 @@ namespace fls_rich_presence_cs
                     else
                     {
                         updateTitle = Regex.Match(title, ".+?(?= - FL Studio [0-9]?[0-9]$)").Value;
+                        if (Regex.Match(updateTitle, "^ *$").Success)
+                        {
+                            updateTitle = null;
+                        }
                     }
                     if (updateTitle != presence.State)
                     {
